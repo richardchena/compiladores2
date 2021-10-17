@@ -284,7 +284,7 @@ void getToken(){
 }
 
 //Principal
-int main(int argc,char* args[])
+/*int main(int argc,char* args[])
 {
 	initTabla();
 	initTablaSimbolos();
@@ -315,3 +315,4 @@ int main(int argc,char* args[])
 	}
 	return 0;
 }
+*/
