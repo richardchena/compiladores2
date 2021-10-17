@@ -17,14 +17,17 @@ token t;				// token global para recibir componentes del Analizador Lexico
 
 // variables para el analizador lexico
 FILE *entrada_json;          // Fuente JSON
-FILE *salida;			// Salida esparada
+//FILE *salida;			// Salida esparada
 char lexema[TAMLEX];	// Utilizado por el analizador lexico
 int numLinea=1;			// Numero de Linea
+int aceptar = 1;
 
 /**************** Funciones **********************/
 // Rutinas del analizador lexico
 void error(const char* mensaje){
-	fprintf(salida, "Lin %d: Error Lexico. %s.\n",numLinea,mensaje);
+	//fprintf(salida, "Lin %d: Error Lexico. %s.\n",numLinea,mensaje);
+	printf("Lin %d: Error Lexico. %s.\n",numLinea,mensaje);
+	aceptar = 0;
 }
 
 void getToken(){
@@ -37,10 +40,11 @@ void getToken(){
 
 	while((c=fgetc(entrada_json))!=EOF){	
 		if (c==' ' || c=='\t'){
-			fprintf(salida,"%c", c);
+			//fprintf(salida,"%c", c);
+			continue;
 
 		}else if(c=='\n'){
-			fprintf(salida, "%c", c);
+			//fprintf(salida, "%c", c);
 			numLinea++;
 		}
 
@@ -108,7 +112,7 @@ void getToken(){
 						else if(c=='.')
 						{
 							i--;
-							fseek(entrada_json,-1,SEEK_CUR);
+							//fseek(entrada_json,-1,SEEK_CUR);
 							estado=6;
 						}
 						else{
@@ -266,11 +270,11 @@ void getToken(){
 			break;
 		}
 		else if (c=='{'){
-			t.compLex='{';
+			t.compLex=L_LLAVE;
 			t.pe=buscar("{");
 			break;
 		}else if (c=='}'){
-			t.compLex='}';
+			t.compLex=R_LLAVE;
 			t.pe=buscar("}");
 			break;
 		}else if (c!=EOF){
