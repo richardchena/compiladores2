@@ -258,14 +258,20 @@ void getToken(){
 			}else{
 				c=0;
 			}
-			t.pe=buscar(lexema);
-			if (t.pe->compLex==-1){
-				strcpy(e.lexema,lexema);
-				e.compLex=STRING;
-				strcpy(e.componenteLexico,"STRING");
-				insertar(e);
+                        if (c==0){
+				t.compLex=EOF;
+				t.pe=NULL;
+			}else{
 				t.pe=buscar(lexema);
 				t.compLex=STRING;
+				if (t.pe->compLex==-1){
+					strcpy(e.lexema,lexema);
+					e.compLex=STRING;
+					strcpy(e.componenteLexico,"STRING");
+					insertar(e);
+					t.pe=buscar(lexema);
+					t.compLex=STRING;
+				}
 			}
 			break;
 		}
